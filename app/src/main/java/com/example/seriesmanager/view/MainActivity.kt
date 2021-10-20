@@ -1,7 +1,8 @@
-package com.example.seriesmanager
+package com.example.seriesmanager.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.seriesmanager.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
