@@ -20,6 +20,8 @@ class MainActivity : AppCompatActivity(), OnSerieClickListener {
     companion object Extras {
         const val EXTRA_SERIE = "EXTRA_SERIE"
         const val EXTRA_POSICAO = "EXTRA_POSICAO"
+        const val EXTRA_EPISODIO = "EXTRA_EPISODIO"
+        const val EXTRA_TEMPORADA = "EXTRA_TEMPORADA"
     }
 
     private val activityMainBinding: ActivityMainBinding by lazy {
