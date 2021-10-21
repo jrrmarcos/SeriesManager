@@ -9,31 +9,34 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
-        android:id="@+id/nomeTv"
+        android:id="@+id/numeroTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Nome"
+        android:text="Episódio Nº"
         android:textSize="25sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
-        android:id="@+id/anoLancamentoTv"
+        android:id="@+id/nomeTv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Ano de Lançamento"
+        android:text="Nome"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/emissoraTv"
-        app:layout_constraintTop_toBottomOf="@id/nomeTv" />
+        app:layout_constraintEnd_toStartOf="@id/tempoDuracaoTv"
+        app:layout_constraintTop_toBottomOf="@id/numeroTv" />
 
     <TextView
-        android:id="@+id/emissoraTv"
+        android:id="@+id/tempoDuracaoTv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Emissora"
-        app:layout_constraintStart_toEndOf="@id/anoLancamentoTv"
+        android:text="Tempo de duração"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@id/nomeTv"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/nomeTv"/>
+        app:layout_constraintTop_toBottomOf="@id/numeroTv"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

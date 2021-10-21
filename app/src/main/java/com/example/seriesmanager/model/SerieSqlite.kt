@@ -84,7 +84,7 @@ class SerieSqlite(contexto: Context): SerieDAO {
                 getString(getColumnIndexOrThrow(COLUNA_NOME)),
                 getString(getColumnIndexOrThrow(COLUNA_ANO_LANCAMENTO)),
                 getString(getColumnIndexOrThrow(COLUNA_EMISSORA)),
-                getString(getColumnIndexOrThrow(COLUNA_GENERO)),
+                getString(getColumnIndexOrThrow(COLUNA_GENERO))
             ))
             }
         }
