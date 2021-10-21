@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/adicionarSerieMi"
+        android:title="Adicionar Série"
+        android:contentDescription="Adicionar Série"
+        android:icon="@drawable/ic_adicionar"
+        app:showAsAction="ifRoom" />
+</menu>
