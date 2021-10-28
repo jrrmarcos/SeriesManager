@@ -12,21 +12,19 @@ import com.example.seriesmanager.OnSerieClickListener
 import com.example.seriesmanager.R
 import com.example.seriesmanager.adapter.SeriesRvAdapter
 import com.example.seriesmanager.controller.SerieController
-import com.example.seriesmanager.databinding.ActivityMainBinding
+import com.example.seriesmanager.databinding.ActivitySerieListaBinding
 import com.example.seriesmanager.model.Serie
 import com.example.seriesmanager.model.Temporada
 import com.google.android.material.snackbar.Snackbar
 
-class MainActivity : AppCompatActivity(), OnSerieClickListener {
+class SerieListaActivity : AppCompatActivity(), OnSerieClickListener {
     companion object Extras {
         const val EXTRA_SERIE = "EXTRA_SERIE"
         const val EXTRA_POSICAO = "EXTRA_POSICAO"
-        const val EXTRA_EPISODIO = "EXTRA_EPISODIO"
-        const val EXTRA_TEMPORADA = "EXTRA_TEMPORADA"
     }
 
-    private val activityMainBinding: ActivityMainBinding by lazy {
-        ActivityMainBinding.inflate(layoutInflater)
+    private val activityMainBinding: ActivitySerieListaBinding by lazy {
+        ActivitySerieListaBinding.inflate(layoutInflater)
     }
 
     private lateinit var serieActivityResultLauncher: ActivityResultLauncher<Intent>
@@ -147,7 +145,7 @@ class MainActivity : AppCompatActivity(), OnSerieClickListener {
     override fun onSerieClick(posicao: Int) {
         val serie = seriesList[posicao]
         val abrirTemporadaIntent = Intent(this, TemporadaListaActivity::class.java)
-        abrirTemporadaIntent.putExtra(EXTRA_SERIE, serie)
+        //abrirTemporadaIntent.putExtra(EXTRA_SERIE, serie)
         startActivity(abrirTemporadaIntent)
     }
 }

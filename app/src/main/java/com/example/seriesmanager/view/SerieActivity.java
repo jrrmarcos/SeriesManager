@@ -1,13 +1,11 @@
 package com.example.seriesmanager.view;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.seriesmanager.R;
 import com.example.seriesmanager.databinding.ActivitySerieBinding;
 import com.example.seriesmanager.model.Serie;
 
@@ -32,11 +30,11 @@ public class SerieActivity extends AppCompatActivity {
                             activitySerieBinding.generoEt.getText().toString()
                     );
                     Intent resultadoIntent = new Intent();
-                    resultadoIntent.putExtra(MainActivity.EXTRA_SERIE, serie);
+                    resultadoIntent.putExtra(SerieListaActivity.EXTRA_SERIE, serie);
 
                     //Se foi edição, também devolver a posição
                     if(posicao!=-1){
-                        resultadoIntent.putExtra(MainActivity.EXTRA_POSICAO, posicao);
+                        resultadoIntent.putExtra(SerieListaActivity.EXTRA_POSICAO, posicao);
                     }
 
                     setResult(RESULT_OK, resultadoIntent);
@@ -45,8 +43,8 @@ public class SerieActivity extends AppCompatActivity {
         );
 
         //Verificando se é uma edição ou consulta e preenchimento de campos
-        posicao = getIntent().getIntExtra(MainActivity.EXTRA_POSICAO, -1);
-        serie = getIntent().getParcelableExtra(MainActivity.EXTRA_SERIE);
+        posicao = getIntent().getIntExtra(SerieListaActivity.EXTRA_POSICAO, -1);
+        serie = getIntent().getParcelableExtra(SerieListaActivity.EXTRA_SERIE);
 
         if(serie!=null){
             activitySerieBinding.nomeEt.setEnabled(false);

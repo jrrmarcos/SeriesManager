@@ -55,6 +55,7 @@ class ManagerSqlite(contexto: Context): ManagerDAO {
                 "${COLUNA_NOME_EP} TEXT NOT NULL, " +
                 "${COLUNA_TEMPO_EP} TEXT NOT NULL, " +
                 "${COLUNA_ASSISTIDO} BOOLEAN NOT NULL, " +
+                "${COLUNA_NOME} TEXT NOT NULL, " +
                 "FOREIGN KEY (${COLUNA_NOME}) REFERENCES ${TABELA_SERIE} (${COLUNA_NOME}) ON DELETE CASCADE);"
     }
 
@@ -65,7 +66,7 @@ class ManagerSqlite(contexto: Context): ManagerDAO {
         try{
             seriesBd.execSQL(CRIAR_TABELA_SERIES_STMT)
             seriesBd.execSQL(CRIAR_TABELA_TEMPORADAS_STMT)
-           // seriesBd.execSQL(CRIAR_TABELA_EPISODIOS_STMT)
+            seriesBd.execSQL(CRIAR_TABELA_EPISODIOS_STMT)
         } catch (se: SQLException) {
             Log.e("Series", se.toString())
         }
@@ -232,23 +233,74 @@ class ManagerSqlite(contexto: Context): ManagerDAO {
     //<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>
 
     override fun criarEpisodio(episodio: Episodio): Long {
-        TODO("Not yet implemented")
+        val episodioCv = ContentValues()
+
+        episodioCv.put(COLUNA_NRO_SEQUENCIAL_EP, episodio.numeroSequencialEp)
+        episodioCv.put(COLUNA_NOME_EP, episodio.nomeEp)
+        episodioCv.put(COLUNA_TEMPO_EP, episodio.tempoDuracaoEp)
+        //episodioCv.put(COLUNA_TEMPO_EP, episodio.assistidoEp)
+
+        return seriesBd.insert(TABELA_EPISODIO, null, episodioCv)
     }
 
-    override fun recuperarEpisodio(nome: String): Episodio {
-        TODO("Not yet implemented")
+    override fun recuperarEpisodio(numero: String): Episodio {
+        val episodioCursor = seriesBd.query(
+            TABELA_EPISODIO,
+            null,
+            "${COLUNA_NRO_SEQUENCIAL_EP} = ?",
+            arrayOf(numero),
+            null,
+            null,
+            null
+        )
+
+        return if (episodioCursor.moveToFirst()) {
+            Episodio (
+                episodioCursor.getString(episodioCursor.getColumnIndexOrThrow(COLUNA_NRO_SEQUENCIAL_EP)),
+                episodioCursor.getString(episodioCursor.getColumnIndexOrThrow(COLUNA_NOME_EP)),
+                episodioCursor.getString(episodioCursor.getColumnIndexOrThrow(COLUNA_TEMPO_EP))
+                //episodioCursor.getString(episodioCursor.getColumnIndexOrThrow(COLUNA_ASSISTIDO)),
+            )
+        } else {
+            Episodio()
+        }
     }
 
     override fun recuperarEpisodio(): MutableList<Episodio> {
-        TODO("Not yet implemented")
+        val listaEpisodio: MutableList<Episodio> = mutableListOf()
+
+        val episodioQuery = "SELECT * FROM ${TABELA_EPISODIO};"
+        val episodioCursor = seriesBd.rawQuery(episodioQuery, null)
+
+        while(episodioCursor.moveToNext()) {
+            with(episodioCursor) {
+                listaEpisodio.add (
+                    Episodio (
+                        episodioCursor.getString(episodioCursor.getColumnIndexOrThrow(COLUNA_NRO_SEQUENCIAL_EP)),
+                        episodioCursor.getString(episodioCursor.getColumnIndexOrThrow(COLUNA_NOME_EP)),
+                        episodioCursor.getString(episodioCursor.getColumnIndexOrThrow(COLUNA_TEMPO_EP))
+                        //episodioCursor.getString(episodioCursor.getColumnIndexOrThrow(COLUNA_ASSISTIDO))
+                    )
+                )
+            }
+        }
+        return listaEpisodio
     }
 
     override fun atualizarEpisodio(episodio: Episodio): Int {
-        TODO("Not yet implemented")
+        val episodioCv = ContentValues()
+        episodioCv.put(COLUNA_NOME_EP, episodio.nomeEp)
+        episodioCv.put(COLUNA_TEMPO_EP, episodio.tempoDuracaoEp)
+        //episodioCv.put(COLUNA_ASSISTIDO, episodio.assistidoEp)
+
+        return seriesBd.update(TABELA_EPISODIO, episodioCv, "${COLUNA_NRO_SEQUENCIAL_EP} = ?", arrayOf(episodio.numeroSequencialEp))
     }
 
-    override fun removerEpisodio(nome: String): Int {
-        TODO("Not yet implemented")
+    override fun removerEpisodio(numero: String): Int {
+        return seriesBd.delete (
+            TABELA_EPISODIO,
+            "${COLUNA_NRO_SEQUENCIAL_EP} = ?",
+            arrayOf(numero)
+        )
     }
-
 }

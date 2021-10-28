@@ -31,11 +31,11 @@ public class TemporadasActivity extends AppCompatActivity {
                             activityTemporadasBinding.anoLancamentoEt.getText().toString()
                     );
                     Intent resultadoIntent = new Intent();
-                    resultadoIntent.putExtra(MainActivity.EXTRA_TEMPORADA, temporada);
+                    resultadoIntent.putExtra(TemporadaListaActivity.EXTRA_TEMPORADA, temporada);
 
                     //Se foi edição, também devolver a posição
                     if(posicao!=-1){
-                        resultadoIntent.putExtra(MainActivity.EXTRA_POSICAO, posicao);
+                        resultadoIntent.putExtra(TemporadaListaActivity.EXTRA_POSICAO, posicao);
                     }
 
                     setResult(RESULT_OK, resultadoIntent);
@@ -44,8 +44,8 @@ public class TemporadasActivity extends AppCompatActivity {
         );
 
         //Verificando se é uma edição ou consulta e preenchimento de campos
-        posicao = getIntent().getIntExtra(MainActivity.EXTRA_POSICAO, -1);
-        temporada = getIntent().getParcelableExtra(MainActivity.EXTRA_TEMPORADA);
+        posicao = getIntent().getIntExtra(TemporadaListaActivity.EXTRA_POSICAO, -1);
+        temporada = getIntent().getParcelableExtra(TemporadaListaActivity.EXTRA_TEMPORADA);
 
         if(temporada!=null){
             activityTemporadasBinding.numeroEt.setEnabled(false);

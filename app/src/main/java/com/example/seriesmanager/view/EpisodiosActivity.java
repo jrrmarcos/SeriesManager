@@ -26,16 +26,16 @@ public class EpisodiosActivity extends AppCompatActivity {
         activityEpisodiosBinding.salvarBt.setOnClickListener(
                 (View view) -> {
                     episodio = new Episodio(
-                            Integer.parseInt(activityEpisodiosBinding.numeroEt.getText().toString()),
+                            activityEpisodiosBinding.numeroEt.getText().toString(),
                             activityEpisodiosBinding.nomeEt.getText().toString(),
                             activityEpisodiosBinding.tempoDuracaoEt.getText().toString()
                     );
                     Intent resultadoIntent = new Intent();
-                    resultadoIntent.putExtra(MainActivity.EXTRA_EPISODIO, episodio);
+                    resultadoIntent.putExtra(EpisodioListaActivity.EXTRA_EPISODIO, episodio);
 
                     //Se foi edição, também devolver a posição
                     if(posicao!=-1){
-                        resultadoIntent.putExtra(MainActivity.EXTRA_POSICAO, posicao);
+                        resultadoIntent.putExtra(EpisodioListaActivity.EXTRA_POSICAO, posicao);
                     }
 
                     setResult(RESULT_OK, resultadoIntent);
@@ -44,14 +44,14 @@ public class EpisodiosActivity extends AppCompatActivity {
         );
 
         //Verificando se é uma edição ou consulta e preenchimento de campos
-        posicao = getIntent().getIntExtra(MainActivity.EXTRA_POSICAO, -1);
-        episodio = getIntent().getParcelableExtra(MainActivity.EXTRA_EPISODIO);
+        posicao = getIntent().getIntExtra(EpisodioListaActivity.EXTRA_POSICAO, -1);
+        episodio = getIntent().getParcelableExtra(EpisodioListaActivity.EXTRA_EPISODIO);
 
         if(episodio!=null){
             activityEpisodiosBinding.numeroEt.setEnabled(false);
-            activityEpisodiosBinding.numeroEt.setText(episodio.getNumeroSequencial());
-            activityEpisodiosBinding.nomeEt.setText(episodio.getNome());
-            activityEpisodiosBinding.tempoDuracaoEt.setText(episodio.getTempoDuracao());
+            activityEpisodiosBinding.numeroEt.setText(episodio.getNumeroSequencialEp());
+            activityEpisodiosBinding.nomeEt.setText(episodio.getNomeEp());
+            activityEpisodiosBinding.tempoDuracaoEt.setText(episodio.getTempoDuracaoEp());
 
             if(posicao==-1){
                 for(int i=0; i<activityEpisodiosBinding.getRoot().getChildCount(); i++){

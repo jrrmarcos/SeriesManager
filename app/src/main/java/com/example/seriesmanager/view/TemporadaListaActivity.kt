@@ -143,8 +143,8 @@ class TemporadaListaActivity : AppCompatActivity(), OnTemporadaClickListener {
 
     override fun onTemporadaClick(posicao: Int) {
         val temporada = temporadasList[posicao]
-        //val abrirEpisodiosIntent = Intent(this, EpisodioListaActivity::class.java)
-        //abrirEpisodiosIntent.putExtra(EXTRA_TEMPORADA, temporada)
-        //startActivity(abrirEpisodiosIntent)
+        val abrirEpisodiosIntent = Intent(this, EpisodioListaActivity::class.java)
+        abrirEpisodiosIntent.putExtra(EXTRA_TEMPORADA, temporada)
+        startActivity(abrirEpisodiosIntent)
     }
 }

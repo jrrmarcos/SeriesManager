@@ -7,4 +7,8 @@
     <item
         android:id="@+id/removerSerieMi"
         android:title="Remover" />
+
+    <item
+        android:id="@+id/assistidoEpMi"
+        android:title="Assistido" />
 </menu>
