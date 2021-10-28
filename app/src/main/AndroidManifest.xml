@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SeriesManager">
         <activity
+            android:name=".view.TemporadaListaActivity"
+            android:exported="true" />
+        <activity
             android:name=".view.EpisodiosActivity"
             android:exported="true" />
         <activity

@@ -1,16 +1,27 @@
 package com.example.seriesmanager.controller
 
+import com.example.seriesmanager.model.ManagerDAO
+import com.example.seriesmanager.model.ManagerSqlite
 import com.example.seriesmanager.model.Serie
-import com.example.seriesmanager.model.SerieDAO
-import com.example.seriesmanager.model.SerieSqlite
 import com.example.seriesmanager.view.MainActivity
 
-class SerieController(mainActivity: MainActivity) {
-    private val serieDAO: SerieDAO = SerieSqlite(mainActivity)
+class SerieController (mainActivity: MainActivity) {
+    private val managerDAO: ManagerDAO = ManagerSqlite(mainActivity)
 
-    fun inserirSerie(serie: Serie) = serieDAO.criarSerie(serie)
-    fun buscarSerie(nome: String) = serieDAO.recuperarSerie(nome)
-    fun buscarSeries() = serieDAO.recuperarSeries()
-    fun modificarSerie(serie: Serie) = serieDAO.atualizarSerie(serie)
-    fun apagarSerie(nome: String) = serieDAO.removerSerie(nome)
+    //SÉRIES
+    fun inserirSerie(serie: Serie) = managerDAO.criarSerie(serie)
+    fun buscarSerie(nome: String) = managerDAO.recuperarSerie(nome)
+    fun buscarSeries() = managerDAO.recuperarSeries()
+    fun modificarSerie(serie: Serie) = managerDAO.atualizarSerie(serie)
+    fun apagarSerie(nome: String) = managerDAO.removerSerie(nome)
+
+/*
+    //EPISÓDIOS
+    fun inserirSerie(serie: Serie) = managerDAO.criarSerie(serie)
+    fun buscarSerie(nome: String) = managerDAO.recuperarSerie(nome)
+    fun buscarSeries() = managerDAO.recuperarSeries()
+    fun modificarSerie(serie: Serie) = managerDAO.atualizarSerie(serie)
+    fun apagarSerie(nome: String) = managerDAO.removerSerie(nome)
+*/
+
 }

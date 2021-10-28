@@ -14,6 +14,7 @@ import com.example.seriesmanager.adapter.SeriesRvAdapter
 import com.example.seriesmanager.controller.SerieController
 import com.example.seriesmanager.databinding.ActivityMainBinding
 import com.example.seriesmanager.model.Serie
+import com.example.seriesmanager.model.Temporada
 import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity(), OnSerieClickListener {
@@ -145,8 +146,8 @@ class MainActivity : AppCompatActivity(), OnSerieClickListener {
 
     override fun onSerieClick(posicao: Int) {
         val serie = seriesList[posicao]
-        val consultarSerieIntent = Intent(this, SerieActivity::class.java)
-        consultarSerieIntent.putExtra(EXTRA_SERIE, serie)
-        startActivity(consultarSerieIntent)
+        val abrirTemporadaIntent = Intent(this, TemporadaListaActivity::class.java)
+        abrirTemporadaIntent.putExtra(EXTRA_SERIE, serie)
+        startActivity(abrirTemporadaIntent)
     }
 }

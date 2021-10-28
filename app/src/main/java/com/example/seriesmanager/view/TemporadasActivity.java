@@ -26,9 +26,9 @@ public class TemporadasActivity extends AppCompatActivity {
         activityTemporadasBinding.salvarBt.setOnClickListener(
                 (View view) -> {
                     temporada = new Temporada (
-                            Integer.parseInt(activityTemporadasBinding.numeroEt.getText().toString()),
-                            activityTemporadasBinding.anoLancamentoEt.getText().toString(),
-                            Integer.parseInt(activityTemporadasBinding.qtdEpisodiosEt.getText().toString())
+                            activityTemporadasBinding.numeroEt.getText().toString(),
+                            activityTemporadasBinding.qtdEpisodiosEt.getText().toString(),
+                            activityTemporadasBinding.anoLancamentoEt.getText().toString()
                     );
                     Intent resultadoIntent = new Intent();
                     resultadoIntent.putExtra(MainActivity.EXTRA_TEMPORADA, temporada);
@@ -45,13 +45,13 @@ public class TemporadasActivity extends AppCompatActivity {
 
         //Verificando se é uma edição ou consulta e preenchimento de campos
         posicao = getIntent().getIntExtra(MainActivity.EXTRA_POSICAO, -1);
-        temporada = getIntent().getParcelableExtra(MainActivity.EXTRA_EPISODIO);
+        temporada = getIntent().getParcelableExtra(MainActivity.EXTRA_TEMPORADA);
 
         if(temporada!=null){
             activityTemporadasBinding.numeroEt.setEnabled(false);
             activityTemporadasBinding.numeroEt.setText(temporada.getNumeroSequencialTemp());
             activityTemporadasBinding.anoLancamentoEt.setText(temporada.getAnoLancamentoTemp());
-            activityTemporadasBinding.qtdEpisodiosEt.setText(temporada.getQtdEpisodios());
+            activityTemporadasBinding.qtdEpisodiosEt.setText(temporada.getQtdEpisodiosTemp());
 
             if(posicao==-1){
                 for(int i=0; i<activityTemporadasBinding.getRoot().getChildCount(); i++){
