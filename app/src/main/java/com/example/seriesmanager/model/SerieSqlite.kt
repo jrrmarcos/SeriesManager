@@ -12,35 +12,48 @@ class SerieSqlite(contexto: Context): SerieDAO {
     companion object {
         private val BD_SERIES = "series"
         private val TABELA_SERIE = "serie"
+
+        //<><><><><>><><><><><><> ADIÇÃO DE COLUNAS REF À SÉRIE
         private val COLUNA_NOME = "nome"
         private val COLUNA_ANO_LANCAMENTO = "ano_lancamento"
         private val COLUNA_EMISSORA = "emissora"
         private val COLUNA_GENERO = "genero"
-        //TESTES DAQUI
+
         //<><><><><><><><><><><> ADIÇÃO DE COLUNAS REF À TEMPORADAS
+        private val TABELA_TEMPORADA = "temporada"
         private val COLUNA_NRO_SEQUENCIAL_TEMP = "numero_temporada"
         private val COLUNA_ANO_LANCAMENTO_TEMP = "ano_lancamento_temp"
         private val COLUNA_QTD_EPISODIOS = "qtd_episodios"
 
         //<><><><><><><>><><><> ADIÇÃO DE COLUNAS REF À EPISÓDIOS
+        private val TABELA_EPISODIO = "episodio"
         private val COLUNA_NRO_SEQUENCIAL_EP = "numero_episodio"
         private val COLUNA_NOME_EP = "nome_episodio"
         private val COLUNA_TEMPO_EP = "tempo_episodio"
         private val COLUNA_ASSISTIDO = "episodio_assistido"
-        //ATÉ AQUI
 
+
+        //CRIANDO TABELA DE SÉRIES
         private val CRIAR_TABELA_SERIES_STMT = "CREATE TABLE IF NOT EXISTS ${TABELA_SERIE} (" +
                 "${COLUNA_NOME} TEXT NOT NULL PRIMARY KEY, " +
                 "${COLUNA_ANO_LANCAMENTO} TEXT NOT NULL, " +
                 "${COLUNA_EMISSORA} TEXT NOT NULL, " +
-                "${COLUNA_GENERO} TEXT NOT NULL, " +
+                "${COLUNA_GENERO} TEXT NOT NULL);"
+
+        //CRIANDO TABELA DE TEMPORADAS
+        private val CRIAR_TABELA_TEMPORADAS_STMT = "CREATE TABLE IF NOT EXISTS ${TABELA_TEMPORADA} (" +
                 "${COLUNA_NRO_SEQUENCIAL_TEMP} INT NOT NULL, " +
                 "${COLUNA_ANO_LANCAMENTO_TEMP} TEXT NOT NULL, " +
-                "${COLUNA_QTD_EPISODIOS} INT NOT NULL, " +
+                "${COLUNA_QTD_EPISODIOS} INT NOT NULL," +
+                "${COLUNA_NOME} TEXT NOT NULL, " +
+                "FOREIGN KEY (${COLUNA_NOME}) REFERENCES ${TABELA_SERIE} (${COLUNA_NOME}));"
+
+        //CRIANDO TABELA DE EPISÓDIOS
+        private val CRIAR_TABELA_EPISODIOS_STMT = "CREATE TABLE IF NOT EXISTS ${TABELA_EPISODIO} (" +
                 "${COLUNA_NRO_SEQUENCIAL_EP} INT NOT NULL, " +
                 "${COLUNA_NOME_EP} TEXT NOT NULL, " +
                 "${COLUNA_TEMPO_EP} TEXT NOT NULL, " +
-                "${COLUNA_ASSISTIDO} BOOLEAN NOT NULL); "
+                "${COLUNA_ASSISTIDO} BOOLEAN NOT NULL);"
     }
 
     //Referência para o banco de dados
