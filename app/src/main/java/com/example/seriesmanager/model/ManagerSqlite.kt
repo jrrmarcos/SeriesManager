@@ -197,13 +197,11 @@ class ManagerSqlite(contexto: Context): ManagerDAO {
 
         while (temporadaCursor.moveToNext()) {
             with(temporadaCursor) {
-                listaTemporada.add(
-                    Temporada(
-                        temporadaCursor.getString(temporadaCursor.getColumnIndexOrThrow(COLUNA_NRO_SEQUENCIAL_TEMP)),
-                        temporadaCursor.getString(temporadaCursor.getColumnIndexOrThrow(COLUNA_QTD_EPISODIOS)),
-                        temporadaCursor.getString(temporadaCursor.getColumnIndexOrThrow(COLUNA_ANO_LANCAMENTO_TEMP))
-                    )
-                )
+                listaTemporada.add( Temporada(
+                        getString(getColumnIndexOrThrow(COLUNA_NRO_SEQUENCIAL_TEMP)),
+                        getString(getColumnIndexOrThrow(COLUNA_QTD_EPISODIOS)),
+                        getString(getColumnIndexOrThrow(COLUNA_ANO_LANCAMENTO_TEMP))
+                    ))
             }
         }
         return listaTemporada
@@ -212,9 +210,8 @@ class ManagerSqlite(contexto: Context): ManagerDAO {
 
     override fun atualizarTemporada(temporada: Temporada): Int {
         val temporadaCv = ContentValues()
-        //temporadaCv.put(COLUNA_NRO_SEQUENCIAL_TEMP, temporada.numeroSequencialTemp)
         temporadaCv.put(COLUNA_QTD_EPISODIOS, temporada.qtdEpisodiosTemp)
-        temporadaCv.put(COLUNA_ANO_LANCAMENTO, temporada.anoLancamentoTemp)
+        temporadaCv.put(COLUNA_ANO_LANCAMENTO_TEMP, temporada.anoLancamentoTemp)
 
         return seriesBd.update(TABELA_TEMPORADA, temporadaCv, "${COLUNA_NRO_SEQUENCIAL_TEMP} = ?", arrayOf(temporada.numeroSequencialTemp))
     }
@@ -226,7 +223,6 @@ class ManagerSqlite(contexto: Context): ManagerDAO {
             arrayOf(numero)
         )
     }
-
 
     //<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>
     //<><><><><><><><><><> FUNÇÕES DE EPISÓDIO <><><><><<><><><><>
@@ -276,9 +272,9 @@ class ManagerSqlite(contexto: Context): ManagerDAO {
             with(episodioCursor) {
                 listaEpisodio.add (
                     Episodio (
-                        episodioCursor.getString(episodioCursor.getColumnIndexOrThrow(COLUNA_NRO_SEQUENCIAL_EP)),
-                        episodioCursor.getString(episodioCursor.getColumnIndexOrThrow(COLUNA_NOME_EP)),
-                        episodioCursor.getString(episodioCursor.getColumnIndexOrThrow(COLUNA_TEMPO_EP))
+                        getString(getColumnIndexOrThrow(COLUNA_NRO_SEQUENCIAL_EP)),
+                        getString(getColumnIndexOrThrow(COLUNA_NOME_EP)),
+                        getString(getColumnIndexOrThrow(COLUNA_TEMPO_EP))
                         //episodioCursor.getString(episodioCursor.getColumnIndexOrThrow(COLUNA_ASSISTIDO))
                     )
                 )
