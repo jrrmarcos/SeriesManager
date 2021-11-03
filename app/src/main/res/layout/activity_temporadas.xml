@@ -6,46 +6,87 @@
     android:layout_height="match_parent"
     tools:context=".view.TemporadasActivity">
 
+    <TextView
+        android:id="@+id/tituloTv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="25dp"
+        android:text="Adicionar nova temporada"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/numeroSequencialEpisodioTv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/numeroSequencial"
+        android:textSize="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tituloTv"/>
+
     <EditText
-        android:id="@+id/numeroEt"
+        android:id="@+id/numeroSequencialEpisodioEt"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Temporada Nº"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/numeroSequencialEpisodioTv"
+        android:enabled="true"/>
+
+    <TextView
+        android:id="@+id/anoLancamentoTv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/anoLancamento"
+        android:textSize="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/numeroSequencialEpisodioEt"/>
 
     <EditText
         android:id="@+id/anoLancamentoEt"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Ano de Lançamento"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/numeroEt" />
+        app:layout_constraintTop_toBottomOf="@id/anoLancamentoTv"
+        android:enabled="true"/>
+
+    <TextView
+        android:id="@+id/qtdEpisodiosTv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/qtdEpisodios"
+        android:textSize="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/anoLancamentoEt"/>
 
     <EditText
         android:id="@+id/qtdEpisodiosEt"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Quantidade de Episódios"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/anoLancamentoEt" />
+        app:layout_constraintTop_toBottomOf="@id/qtdEpisodiosTv"
+        android:enabled="true"/>
 
     <Button
         android:id="@+id/salvarBt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Salvar"
+        android:text="@string/btnVoltar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/qtdEpisodiosEt"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

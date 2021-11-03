@@ -14,6 +14,7 @@ import com.example.seriesmanager.model.Serie;
 public class EpisodiosActivity extends AppCompatActivity {
     private ActivityEpisodiosBinding activityEpisodiosBinding;
     private int posicao = -1;
+    private int temporadaId = 0;
     private Episodio episodio;
 
     @Override
@@ -28,7 +29,9 @@ public class EpisodiosActivity extends AppCompatActivity {
                     episodio = new Episodio(
                             activityEpisodiosBinding.numeroEt.getText().toString(),
                             activityEpisodiosBinding.nomeEt.getText().toString(),
-                            activityEpisodiosBinding.tempoDuracaoEt.getText().toString()
+                            activityEpisodiosBinding.tempoDuracaoEt.getText().toString(),
+                            activityEpisodiosBinding.assistidoCb.isChecked(),
+                            temporadaId
                     );
                     Intent resultadoIntent = new Intent();
                     resultadoIntent.putExtra(EpisodioListaActivity.EXTRA_EPISODIO, episodio);
@@ -45,6 +48,7 @@ public class EpisodiosActivity extends AppCompatActivity {
 
         //Verificando se é uma edição ou consulta e preenchimento de campos
         posicao = getIntent().getIntExtra(EpisodioListaActivity.EXTRA_POSICAO, -1);
+        //temporadaId = getIntent().getIntExtra(EpisodioListaActivity.EXTRA_TEMPORADA_ID, -1)
         episodio = getIntent().getParcelableExtra(EpisodioListaActivity.EXTRA_EPISODIO);
 
         if(episodio!=null){

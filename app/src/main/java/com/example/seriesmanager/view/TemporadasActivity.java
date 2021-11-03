@@ -9,11 +9,13 @@ import android.view.View;
 import com.example.seriesmanager.databinding.ActivityEpisodiosBinding;
 import com.example.seriesmanager.databinding.ActivityTemporadasBinding;
 import com.example.seriesmanager.model.Episodio;
+import com.example.seriesmanager.model.Serie;
 import com.example.seriesmanager.model.Temporada;
 
 public class TemporadasActivity extends AppCompatActivity {
     private ActivityTemporadasBinding activityTemporadasBinding;
     private int posicao = -1;
+    private Serie serie;
     private Temporada temporada;
 
     @Override
@@ -28,8 +30,11 @@ public class TemporadasActivity extends AppCompatActivity {
                     temporada = new Temporada (
                             activityTemporadasBinding.numeroEt.getText().toString(),
                             activityTemporadasBinding.qtdEpisodiosEt.getText().toString(),
+                            activityTemporadasBinding.anoLancamentoEt.getText().toString(),
                             activityTemporadasBinding.anoLancamentoEt.getText().toString()
+                            //serie.getNome()
                     );
+
                     Intent resultadoIntent = new Intent();
                     resultadoIntent.putExtra(TemporadaListaActivity.EXTRA_TEMPORADA, temporada);
 

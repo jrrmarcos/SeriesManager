@@ -87,15 +87,6 @@ class SerieListaActivity : AppCompatActivity(), OnSerieClickListener {
         }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean  = when (item.itemId) {
-        R.id.adicionarSerieMi -> {
-            serieActivityResultLauncher.launch(Intent(this, SerieActivity::class.java))
-            true
-        } else ->  {
-            false;
-        }
-    }
-
     override fun onContextItemSelected(item: MenuItem): Boolean {
         val posicao = seriesAdapter.posicao
         val serie = seriesList[posicao]
@@ -145,7 +136,7 @@ class SerieListaActivity : AppCompatActivity(), OnSerieClickListener {
     override fun onSerieClick(posicao: Int) {
         val serie = seriesList[posicao]
         val abrirTemporadaIntent = Intent(this, TemporadaListaActivity::class.java)
-        //abrirTemporadaIntent.putExtra(EXTRA_SERIE, serie)
+        abrirTemporadaIntent.putExtra(EXTRA_SERIE, serie)
         startActivity(abrirTemporadaIntent)
     }
 }

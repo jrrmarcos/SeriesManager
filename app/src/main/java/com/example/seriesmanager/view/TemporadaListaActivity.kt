@@ -13,14 +13,19 @@ import com.example.seriesmanager.R
 import com.example.seriesmanager.adapter.TemporadasRvAdapter
 import com.example.seriesmanager.controller.TemporadaController
 import com.example.seriesmanager.databinding.ActivityTemporadaListaBinding
+import com.example.seriesmanager.model.Serie
 import com.example.seriesmanager.model.Temporada
+import com.example.seriesmanager.view.SerieListaActivity.Extras.EXTRA_SERIE
 import com.google.android.material.snackbar.Snackbar
 
 class TemporadaListaActivity : AppCompatActivity(), OnTemporadaClickListener {
     companion object Extras {
         const val EXTRA_TEMPORADA = "EXTRA_TEMPORADA"
+        const val EXTRA_TEMPORADA_ID = "EXTRA_TEMPORADA_ID"
         const val EXTRA_POSICAO = "EXTRA_POSICAO"
     }
+
+    private lateinit var serie:Serie
 
     private val activityTemporadaListaActivityBinding: ActivityTemporadaListaBinding by lazy {
         ActivityTemporadaListaBinding.inflate(layoutInflater)
@@ -29,14 +34,19 @@ class TemporadaListaActivity : AppCompatActivity(), OnTemporadaClickListener {
     private lateinit var temporadaActivityResultLauncher: ActivityResultLauncher<Intent>
     private lateinit var editarTemporadaActivityResultLauncher: ActivityResultLauncher<Intent>
 
-    //Data Source
-    private val temporadasList: MutableList<Temporada> by lazy {
-        temporadaController.buscarTemporadas()
-    }
-
     //Controller
     private val temporadaController: TemporadaController by lazy {
         TemporadaController(this)
+    }
+
+    //Data Source
+    private val temporadasList: MutableList<Temporada> by lazy {
+        temporadaController.buscarTemporadas(serie.nome)
+        //temporadaController.buscarTemporadas()
+    }
+
+    private val temporadaAdapter: TemporadasRvAdapter by lazy {
+        TemporadasRvAdapter(this, temporadasList)
     }
 
     //Layout Manager
@@ -44,13 +54,11 @@ class TemporadaListaActivity : AppCompatActivity(), OnTemporadaClickListener {
         LinearLayoutManager(this)
     }
 
-    private val temporadaAdapter: TemporadasRvAdapter by lazy {
-        TemporadasRvAdapter(this, temporadasList)
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(activityTemporadaListaActivityBinding.root)
+
+        serie = intent.getParcelableExtra<Serie>(EXTRA_SERIE)!!
 
         //Associar Adapter e Layout Manager ao Recycler View
         activityTemporadaListaActivityBinding.temporadasRv.adapter = temporadaAdapter
@@ -83,15 +91,6 @@ class TemporadaListaActivity : AppCompatActivity(), OnTemporadaClickListener {
 
         activityTemporadaListaActivityBinding.adicionarSerieFab.setOnClickListener {
             temporadaActivityResultLauncher.launch(Intent(this, TemporadasActivity::class.java))
-        }
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean  = when (item.itemId) {
-        R.id.adicionarSerieMi -> {
-            temporadaActivityResultLauncher.launch(Intent(this, TemporadasActivity::class.java))
-            true
-        } else ->  {
-            false;
         }
     }
 
@@ -143,8 +142,11 @@ class TemporadaListaActivity : AppCompatActivity(), OnTemporadaClickListener {
 
     override fun onTemporadaClick(posicao: Int) {
         val temporada = temporadasList[posicao]
+        val temporadaId = temporadaController.buscarTemporada(temporada.nomeSerie, temporada.numeroSequencialTemp)
         val abrirEpisodiosIntent = Intent(this, EpisodioListaActivity::class.java)
         abrirEpisodiosIntent.putExtra(EXTRA_TEMPORADA, temporada)
+        abrirEpisodiosIntent.putExtra(EXTRA_TEMPORADA_ID, temporadaId)
         startActivity(abrirEpisodiosIntent)
     }
 }
+

@@ -1,7 +1,5 @@
 package com.example.seriesmanager.controller
 
-import com.example.seriesmanager.model.ManagerDAO
-import com.example.seriesmanager.model.ManagerSqlite
 import com.example.seriesmanager.model.Serie
 import com.example.seriesmanager.view.SerieListaActivity
 

@@ -9,10 +9,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
-        android:id="@+id/numeroTv"
-        android:layout_width="match_parent"
+        android:id="@+id/numeroSequencialTv"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Temporada Nº"
+        android:text="@string/numeroSequencial"
         android:textSize="25sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,20 +22,19 @@
         android:id="@+id/qtdEpisodiosTv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Ano de Lançamento"
-        android:textSize="20sp"
+        android:text="@string/anoLancamento"
+        android:textSize="15sp"
         app:layout_constraintStart_toEndOf="@id/anoLancamentoTv"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/numeroTv" />
+        app:layout_constraintTop_toBottomOf="@id/numeroSequencialTv" />
 
     <TextView
         android:id="@+id/anoLancamentoTv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Quantidade de Episódios"
-        android:textSize="18sp"
+        android:text="@string/qtdEpisodios"
+        android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/qtdEpisodiosTv"
-        app:layout_constraintTop_toBottomOf="@id/numeroTv" />
-
+        app:layout_constraintTop_toBottomOf="@id/numeroSequencialTv" />
 </androidx.constraintlayout.widget.ConstraintLayout>

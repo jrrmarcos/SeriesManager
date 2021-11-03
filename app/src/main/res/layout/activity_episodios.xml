@@ -5,57 +5,95 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.EpisodiosActivity">
-
-    <EditText
-        android:id="@+id/numeroEt"
+    <TextView
+        android:id="@+id/tituloTv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Episódio Nº"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="25dp"
+        android:text="Adicionar novo episódio"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/nomeTv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/nomeEpisodio"
+        android:textSize="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tituloTv"/>
 
     <EditText
         android:id="@+id/nomeEt"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Nome"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/numeroEt" />
+        app:layout_constraintTop_toBottomOf="@id/nomeTv"
+        android:enabled="true"/>
+
+    <TextView
+        android:id="@+id/numeroSequencialTv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/numeroSequencial"
+        android:textSize="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/nomeEt"/>
 
     <EditText
-        android:id="@+id/tempoDuracaoEt"
+        android:id="@+id/numeroSequencialEt"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Tempo de duração"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/nomeEt" />
+        app:layout_constraintTop_toBottomOf="@id/numeroSequencialTv"
+        android:enabled="true"/>
 
-    <CheckBox
-        android:id="@+id/checadoCb"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/duracaoTv"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Episódio já assistido?"
+        android:text="@string/duracaoEpisodio"
+        android:textSize="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/numeroSequencialEt"/>
+
+    <EditText
+        android:id="@+id/duracaoEt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tempoDuracaoEt"/>
+        app:layout_constraintTop_toBottomOf="@id/duracaoTv"
+        android:enabled="true"/>
+
+    <CheckBox
+        android:id="@+id/assistidoCb"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/vistoEpisodio"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/duracaoEt"/>
 
     <Button
         android:id="@+id/salvarBt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Salvar"
+        android:text="@string/btnVoltar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/checadoCb"/>
-
+        app:layout_constraintTop_toBottomOf="@id/assistidoCb"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,9 +10,9 @@
 
     <TextView
         android:id="@+id/nomeTv"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Nome"
+        android:text="@string/nomeSerie"
         android:textSize="25sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,18 +22,30 @@
         android:id="@+id/anoLancamentoTv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Ano de Lançamento"
+        android:text="@string/anoLancamento"
+        android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/emissoraTv"
-        app:layout_constraintTop_toBottomOf="@id/nomeTv" />
+        app:layout_constraintTop_toBottomOf="@id/nomeTv"/>
 
     <TextView
         android:id="@+id/emissoraTv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Emissora"
-        app:layout_constraintStart_toEndOf="@id/anoLancamentoTv"
+        android:text="@string/emissoraSerie"
+        android:textSize="15sp"
+        app:layout_constraintStart_toEndOf="@+id/anoLancamentoTv"
+        app:layout_constraintEnd_toEndOf="@id/generoTv"
+        app:layout_constraintTop_toBottomOf="@+id/nomeTv"/>
+
+    <TextView
+        android:id="@+id/generoTv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/generoSerie"
+        android:textSize="15sp"
+        app:layout_constraintStart_toEndOf="@id/emissoraTv"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/nomeTv"/>
+        app:layout_constraintTop_toBottomOf="@+id/nomeTv"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

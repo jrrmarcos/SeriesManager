@@ -4,9 +4,10 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class Episodio (
-        val numeroSequencialEp: String = "",
-        val nomeEp: String = "",
-        val tempoDuracaoEp: String = "",
-        //var assistidoEp: Boolean = false
+data class Episodio(
+        val numeroSequencialEp: Int,
+        val nomeEp: String,
+        val duracaoEp: Int,
+        val assistidoEp: Boolean,
+        val temporadaId: Int
 ): Parcelable

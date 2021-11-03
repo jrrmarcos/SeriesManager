@@ -1,8 +1,6 @@
 package com.example.seriesmanager.controller
 
 import com.example.seriesmanager.model.Episodio
-import com.example.seriesmanager.model.ManagerDAO
-import com.example.seriesmanager.model.ManagerSqlite
 import com.example.seriesmanager.view.EpisodioListaActivity
 
 class EpisodioController(episodiosActivity: EpisodioListaActivity) {
