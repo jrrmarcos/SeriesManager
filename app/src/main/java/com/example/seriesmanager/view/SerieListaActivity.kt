@@ -20,7 +20,7 @@ import com.google.android.material.snackbar.Snackbar
 class SerieListaActivity : AppCompatActivity(), OnSerieClickListener {
     companion object Extras {
         const val EXTRA_SERIE = "EXTRA_SERIE"
-        const val EXTRA_POSICAO = "EXTRA_POSICAO"
+        const val EXTRA_SERIE_POSICAO = "EXTRA_POSICAO_SERIE"
     }
 
     private val activityMainBinding: ActivitySerieListaBinding by lazy {
@@ -28,115 +28,97 @@ class SerieListaActivity : AppCompatActivity(), OnSerieClickListener {
     }
 
     private lateinit var serieActivityResultLauncher: ActivityResultLauncher<Intent>
-    private lateinit var editarSerieActivityResultLauncher: ActivityResultLauncher<Intent>
-
-    //Data Source
-    private val seriesList: MutableList<Serie> by lazy {
-        serieController.buscarSeries()
-    }
+    private lateinit var visualizarSerieActivityResultLauncher: ActivityResultLauncher<Intent>
 
     //Controller
     private val serieController: SerieController by lazy {
         SerieController(this)
     }
 
-    //Layout Manager
-    private val seriesLayoutManager: LinearLayoutManager by lazy {
-        LinearLayoutManager(this)
+    //Data source
+    private val serieList: MutableList<Serie> by lazy {
+        serieController.buscarSeries()
     }
 
-    private val seriesAdapter: SeriesRvAdapter by lazy {
-        SeriesRvAdapter(this, seriesList)
+    //Adapter
+    private val serieAdapter: SeriesRvAdapter by lazy {
+        SeriesRvAdapter(this, serieList)
+    }
+
+    //Layout Manager
+    private val serieLayoutManager: LinearLayoutManager by lazy {
+        LinearLayoutManager(this)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(activityMainBinding.root)
 
-        //Associar Adapter e Layout Manager ao Recycler View
-        activityMainBinding.seriesRv.adapter = seriesAdapter
-        activityMainBinding.seriesRv.layoutManager = seriesLayoutManager
+        activityMainBinding.SeriesRv.adapter = serieAdapter
+        activityMainBinding.SeriesRv.layoutManager = serieLayoutManager
 
-        //Adicionar uma série
-        serieActivityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {resultado ->
-            if(resultado.resultCode== RESULT_OK){
+        //Associar Adapter e Layout Manager ao Recycler View
+        serieActivityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { resultado ->
+            if (resultado.resultCode == RESULT_OK) {
                 resultado.data?.getParcelableExtra<Serie>(EXTRA_SERIE)?.apply {
                     serieController.inserirSerie(this)
-                    seriesList.add(this)
-                    seriesAdapter.notifyDataSetChanged()
+                    serieList.add(this)
+                    serieAdapter.notifyDataSetChanged()
                 }
             }
         }
 
-        //Editar uma série
-        editarSerieActivityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {resultado ->
-            if(resultado.resultCode == RESULT_OK) {
-                val posicao = resultado.data?.getIntExtra(EXTRA_POSICAO, -1)
+        visualizarSerieActivityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { resultado ->
+            if (resultado.resultCode == RESULT_OK) {
+                val posicao = resultado.data?.getIntExtra(EXTRA_SERIE_POSICAO, -1)
                 resultado.data?.getParcelableExtra<Serie>(EXTRA_SERIE)?.apply {
-                    if(posicao!=null && posicao!=-1){
-                        serieController.modificarSerie(this)
-                        seriesList[posicao] = this
-                        seriesAdapter.notifyDataSetChanged()
-                    }
                 }
             }
         }
 
-        activityMainBinding.adicionarSerieFab.setOnClickListener {
+        activityMainBinding.adicionarSeriesFb.setOnClickListener {
             serieActivityResultLauncher.launch(Intent(this, SerieActivity::class.java))
         }
     }
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
-        val posicao = seriesAdapter.posicao
-        val serie = seriesList[posicao]
+        val posicao = serieAdapter.posicao
+        val serie = serieList[posicao]
 
-        return when (item.itemId) {
-            R.id.editarSerieMi -> {
-                //Editar série
-                val editarSerieIntent = Intent(this, SerieActivity::class.java)
-                editarSerieIntent.putExtra(EXTRA_SERIE, serie)
-                editarSerieIntent.putExtra(EXTRA_POSICAO, posicao)
-                editarSerieActivityResultLauncher.launch(editarSerieIntent)
+        return when(item.itemId) {
+            R.id.visualizarSerieMi -> {
+                //Visualizar uma série
+                val visualizarSerieIntent = Intent(this, SerieActivity::class.java)
+                visualizarSerieIntent.putExtra(EXTRA_SERIE, serie)
+                visualizarSerieIntent.putExtra(EXTRA_SERIE_POSICAO, posicao)
+                visualizarSerieActivityResultLauncher.launch(visualizarSerieIntent)
                 true
             }
             R.id.removerSerieMi -> {
-                //Remover série
+                //Remover uma série
                 with(AlertDialog.Builder(this)) {
                     setMessage("Confirma a remoção?")
                     setPositiveButton("Sim") { _, _ ->
-                        serieController.apagarSerie(serie.nome)
-                        seriesList.removeAt(posicao)
-                        seriesAdapter.notifyDataSetChanged()
-                        Snackbar.make(
-                            activityMainBinding.root,
-                            "Série removida!",
-                            Snackbar.LENGTH_SHORT
-                        ).show()
+                        serieController.apagarSerie(serie.nomeSerie)
+                        serieList.removeAt(posicao)
+                        serieAdapter.notifyDataSetChanged()
+                        Snackbar.make(activityMainBinding.root, "Serie removida", Snackbar.LENGTH_SHORT).show()
                     }
-                    setNegativeButton("Não") { _, _, ->
-                        Snackbar.make(
-                            activityMainBinding.root,
-                            "Remoção cancelada!",
-                            Snackbar.LENGTH_SHORT
-                        ).show()
+                    setNegativeButton("Não") { _, _ ->
+                        Snackbar.make(activityMainBinding.root, "Remoção cancelada", Snackbar.LENGTH_SHORT).show()
                     }
                     create()
                 }.show()
 
                 true
-            }
-            else -> {
-                false
-
-            }
+            } else -> { false }
         }
     }
 
     override fun onSerieClick(posicao: Int) {
-        val serie = seriesList[posicao]
-        val abrirTemporadaIntent = Intent(this, TemporadaListaActivity::class.java)
-        abrirTemporadaIntent.putExtra(EXTRA_SERIE, serie)
-        startActivity(abrirTemporadaIntent)
+        val serie = serieList[posicao]
+        val consultarTemporadasIntent = Intent(this, TemporadaListaActivity::class.java)
+        consultarTemporadasIntent.putExtra(EXTRA_SERIE, serie)
+        startActivity(consultarTemporadasIntent)
     }
 }
