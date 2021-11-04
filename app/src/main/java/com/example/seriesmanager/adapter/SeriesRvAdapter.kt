@@ -7,66 +7,65 @@ import com.example.seriesmanager.OnSerieClickListener
 import com.example.seriesmanager.R
 import com.example.seriesmanager.databinding.LayoutSerieBinding
 import com.example.seriesmanager.model.Serie
+import com.example.seriesmanager.view.SerieListaActivity
 
 class SeriesRvAdapter (
-    private val onSerieClickListener: OnSerieClickListener,
-    private val seriesList: MutableList<Serie>
+    private val onSerieClickListener: SerieListaActivity,
+    private val serieList: MutableList<Serie>
 ): RecyclerView.Adapter<SeriesRvAdapter.SerieLayoutHolder>() {
 
     //Posição que será recuperada pelo menu de contexto
     var posicao: Int = -1
 
     //View Holder
-    inner class SerieLayoutHolder(layoutSerieBinding: LayoutSerieBinding): RecyclerView.ViewHolder(layoutSerieBinding.root),
-            View.OnCreateContextMenuListener {
-                val nomeTv: TextView = layoutSerieBinding.nomeTv
-                val anoLancamentoTv: TextView = layoutSerieBinding.anoLancamentoTv
-                val emissoraTv: TextView = layoutSerieBinding.emissoraTv
+    inner class SerieLayoutHolder(layoutSerieBinding: LayoutSerieBinding): RecyclerView.ViewHolder(layoutSerieBinding.root), View.OnCreateContextMenuListener {
+        val nomeTv: TextView = layoutSerieBinding.nomeTv
+        val anoLancamentoTv: TextView = layoutSerieBinding.anoLancamentoTv
+        val emissoraTv: TextView = layoutSerieBinding.emissoraTv
+        val generoTv: TextView = layoutSerieBinding.generoTv
 
-                init {
-                    itemView.setOnCreateContextMenuListener(this)
-                }
+        init {
+            itemView.setOnCreateContextMenuListener(this)
+        }
 
-                override fun onCreateContextMenu(
-                    menu: ContextMenu?,
-                    view: View?,
-                    menuInfo: ContextMenu.ContextMenuInfo?
-                ) {
-                    MenuInflater(view?.context).inflate(R.menu.context_manu_main, menu)
-                }
-            }
+        override fun onCreateContextMenu(
+            menu: ContextMenu?,
+            view: View?,
+            menuInfo: ContextMenu.ContextMenuInfo?
+        ) {
+            MenuInflater(view?.context).inflate(R.menu.context_menu_serie, menu)
+        }
+    }
 
     //Quando uma nova célula precisa ser criada
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SerieLayoutHolder {
         //Criar uma nova célula
-        val layoutSerieBinding = LayoutSerieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val layoutSerieBinding = LayoutSerieBinding.inflate(LayoutInflater.from(parent.context), parent,false)
 
         //Criar um holder associado a nova célula
-        val viewHolder: SerieLayoutHolder = SerieLayoutHolder(layoutSerieBinding)
-        return viewHolder
+        return SerieLayoutHolder(layoutSerieBinding)
     }
 
     //Quando for necessário atualizar os valores de uma célula
     override fun onBindViewHolder(holder: SerieLayoutHolder, position: Int) {
-       //Busco a série
-        val serie = seriesList[position]
+        //Buscar a série
+        val serie = serieList[position]
 
         //Atualizar os valores do viewHolder
         with(holder) {
-            nomeTv.text = serie.nome
-            anoLancamentoTv.text = serie.ano_lancamento
-            emissoraTv.text = serie.emissora
-
+            nomeTv.text = serie.nomeSerie
+            anoLancamentoTv.text = serie.anoLancamentoSerie
+            emissoraTv.text = serie.emissoraSerie
+            generoTv.text = serie.generoSerie
             itemView.setOnClickListener {
                 onSerieClickListener.onSerieClick(position)
             }
-
-            itemView.setOnLongClickListener {
+            itemView.setOnLongClickListener{
                 posicao = position
                 false
             }
         }
     }
 
-    override fun getItemCount(): Int = seriesList.size
+    override fun getItemCount(): Int = serieList.size
 }

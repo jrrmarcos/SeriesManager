@@ -1,16 +1,15 @@
 package com.example.seriesmanager.controller
 
 import com.example.seriesmanager.model.Serie
+import com.example.seriesmanager.model.SerieDAO
+import com.example.seriesmanager.model.SerieSqlite
 import com.example.seriesmanager.view.SerieListaActivity
 
-class SerieController (mainActivity: SerieListaActivity) {
-    private val managerDAO: ManagerDAO = ManagerSqlite(mainActivity)
+class SerieController (seriesListaActivity: SerieListaActivity) {
+    private val serieDAO: SerieDAO = SerieSqlite(seriesListaActivity)
 
-    //SÉRIES
-    fun inserirSerie(serie: Serie) = managerDAO.criarSerie(serie)
-    fun buscarSerie(nome: String) = managerDAO.recuperarSerie(nome)
-    fun buscarSeries() = managerDAO.recuperarSeries()
-    fun modificarSerie(serie: Serie) = managerDAO.atualizarSerie(serie)
-    fun apagarSerie(nome: String) = managerDAO.removerSerie(nome)
+    fun inserirSerie(serie: Serie) = serieDAO.criarSerie(serie)
+    fun buscarSeries() = serieDAO.recuperarSeries()
+    fun apagarSerie(nome: String) = serieDAO.removerSerie(nome)
 
 }

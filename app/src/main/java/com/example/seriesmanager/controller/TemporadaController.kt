@@ -1,16 +1,16 @@
 package com.example.seriesmanager.controller
 
 import com.example.seriesmanager.model.Temporada
+import com.example.seriesmanager.model.TemporadaDAO
+import com.example.seriesmanager.model.TemporadaSqlite
 import com.example.seriesmanager.view.TemporadaListaActivity
 
-class TemporadaController(temporadasActivity: TemporadaListaActivity) {
-    private val managerDAO: ManagerDAO = ManagerSqlite(temporadasActivity)
+class TemporadaController(temporadasListaActivity: TemporadaListaActivity) {
+    private val temporadaDAO: TemporadaDAO = TemporadaSqlite(temporadasListaActivity)
 
-    //TEMPORADAS
-    fun inserirTemporada(temporada: Temporada) = managerDAO.criarTemporada(temporada)
-    fun buscarTemporada(nomeSerie: String, numero: String) = managerDAO.recuperarTemporada(nomeSerie,numero)
-    fun buscarTemporadas(nomeSerie: String) = managerDAO.recuperarTemporadas(nomeSerie)
-    //fun buscarTemporadas() = managerDAO.recuperarTemporadas()
-    fun modificarTemporada(temporada: Temporada) = managerDAO.atualizarTemporada(temporada)
-    fun apagarTemporada(numero: String) = managerDAO.removerTemporada(numero)
+    fun inserirTemporada(temporada: Temporada) = temporadaDAO.criarTemporada(temporada)
+    fun buscarTemporadas(nomeSerie: String) = temporadaDAO.recuperarTemporadas(nomeSerie)
+    fun apagarTemporadas(nomeSerie: String, numeroSequencial: Int) = temporadaDAO.removerTemporada(nomeSerie, numeroSequencial)
+    fun buscarTemporadaId(nomeSerie: String, numeroSequencial: Int) = temporadaDAO.buscarTemporadaId(nomeSerie, numeroSequencial)
+
 }
