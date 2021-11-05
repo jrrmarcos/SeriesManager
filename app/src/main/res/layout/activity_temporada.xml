@@ -4,14 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.TemporadasActivity">
+    tools:context=".view.TemporadaActivity">
+
 
     <TextView
         android:id="@+id/tituloTv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textSize="25dp"
-        android:text="Adicionar nova temporada"
+        android:text="Temporada"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>

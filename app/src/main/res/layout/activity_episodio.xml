@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.EpisodiosActivity">
+    tools:context=".view.EpisodioActivity">
+
     <TextView
         android:id="@+id/tituloTv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textSize="25dp"
-        android:text="Adicionar novo episódio"
+        android:text="Episódio"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
