@@ -11,6 +11,7 @@ class TemporadaSqlite (contexto: Context): TemporadaDAO {
         val temporadaCv = ContentValues()
         temporadaCv.put("numero_sequencial", temporada.numeroSequencialTemp)
         temporadaCv.put("ano_lancamento", temporada.anoLancamentoTemp)
+        temporadaCv.put("qtd_episodios", temporada.qtdEpisodiosTemp)
         temporadaCv.put("nome_serie", temporada.nomeSerie)
 
         return bdSeries.insert("TEMPORADA", null, temporadaCv)
@@ -18,8 +19,8 @@ class TemporadaSqlite (contexto: Context): TemporadaDAO {
 
     override fun recuperarTemporadas(nomeSerie: String): MutableList<Temporada> {
         val temporadasList: MutableList<Temporada> = ArrayList()
-        val temporadaCursor = bdSeries.rawQuery("SELECT nome_serie, ano_lancamento, numero_sequencial " +
-                "                                    FROM temporada WHERE nome_serie = ?;", arrayOf(nomeSerie))
+        val temporadaCursor = bdSeries.rawQuery("SELECT * " +
+                "                                    FROM TEMPORADA WHERE nome_serie = ?;", arrayOf(nomeSerie))
         val temporada: Temporada
 
         if (temporadaCursor.moveToFirst()) {
@@ -45,19 +46,19 @@ class TemporadaSqlite (contexto: Context): TemporadaDAO {
         bdSeries.delete("EPISODIO", "temporada_id = ? ", arrayOf(temporadaId.toString()))
 
         //Episódios deletados, deletando temporada
-        return bdSeries.delete("TEMPORADA", "numero_sequencial_temp = ? AND nome_serie = ?",
+        return bdSeries.delete("TEMPORADA", "numero_sequencial = ? AND nome_serie = ?",
             arrayOf(numeroSequencialtoString, nomeSerie)
         )
     }
 
     override fun buscarTemporadaId(nomeSerie: String, numeroSequencial: Int): Int {
-        val temporadaCursor = bdSeries.rawQuery("SELECT id " +
-                "                                   from temporada WHERE numero_sequencial_temp = ? AND nome_serie = ?",
+        val temporadaCursor = bdSeries.rawQuery("SELECT id_temporada " +
+                "                                   from TEMPORADA WHERE numero_sequencial = ? AND nome_serie = ?",
             arrayOf(numeroSequencial.toString(), nomeSerie))
         var temporadaId: Int = 0
 
         if (temporadaCursor.moveToFirst()){
-            temporadaId = temporadaCursor.getInt(temporadaCursor.getColumnIndexOrThrow("id_temp"))
+            temporadaId = temporadaCursor.getInt(temporadaCursor.getColumnIndexOrThrow("id_temporada"))
         }
         return temporadaId
     }

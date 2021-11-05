@@ -115,7 +115,7 @@ class EpisodioListaActivity : AppCompatActivity(), OnEpisodioClickListener {
                         episodioController.apagarEpisodio(temporadaId, episodio.numeroSequencialEp)
                         episodioList.removeAt(posicao)
                         episodioAdapter.notifyDataSetChanged()
-                        Snackbar.make(activityEpisodioListaActivityBinding.root, "Episódio removida", Snackbar.LENGTH_SHORT).show()
+                        Snackbar.make(activityEpisodioListaActivityBinding.root, "Episódio removido", Snackbar.LENGTH_SHORT).show()
                     }
                     setNegativeButton("Não") { _, _ ->
                         Snackbar.make(activityEpisodioListaActivityBinding.root, "Remoção cancelada", Snackbar.LENGTH_SHORT).show()

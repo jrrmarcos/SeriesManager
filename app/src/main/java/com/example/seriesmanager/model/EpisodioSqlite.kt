@@ -12,7 +12,7 @@ class EpisodioSqlite  (contexto: Context): EpisodioDAO {
         episodioCv.put("numero_sequencial", episodio.numeroSequencialEp)
         episodioCv.put("nome", episodio.nomeEp)
         episodioCv.put("duracao", episodio.duracaoEp)
-        episodioCv.put("foi_visto", episodio.assistidoEp)
+        episodioCv.put("assistido", episodio.assistidoEp)
         episodioCv.put("temporada_id", episodio.temporadaId)
 
         return bdSeries.insert("EPISODIO", null, episodioCv)
@@ -20,7 +20,9 @@ class EpisodioSqlite  (contexto: Context): EpisodioDAO {
 
     override fun recuperarEpisodios(temporadaId: Int): MutableList<Episodio> {
         val episodiosList: MutableList<Episodio> = ArrayList()
-        val episodioCursor = bdSeries.rawQuery("SELECT * FROM EPISODIO WHERE temporada_id = ?", arrayOf(temporadaId.toString()))
+        val episodioCursor = bdSeries.rawQuery("SELECT * " +
+                "                                   FROM EPISODIO WHERE temporada_id = ?",
+            arrayOf(temporadaId.toString()))
         val episodio: Episodio
 
         if (episodioCursor.moveToFirst()) {
@@ -29,7 +31,7 @@ class EpisodioSqlite  (contexto: Context): EpisodioDAO {
                     episodioCursor.getInt(episodioCursor.getColumnIndexOrThrow("numero_sequencial")),
                     episodioCursor.getString(episodioCursor.getColumnIndexOrThrow("nome")),
                     episodioCursor.getInt(episodioCursor.getColumnIndexOrThrow("duracao")),
-                    intToBoolean(episodioCursor.getInt(episodioCursor.getColumnIndexOrThrow("foi_visto"))),
+                    intToBoolean(episodioCursor.getInt(episodioCursor.getColumnIndexOrThrow("assistido"))),
                     episodioCursor.getInt(episodioCursor.getColumnIndexOrThrow("temporada_id"))
                 )
                 episodiosList.add(episodio)
@@ -41,7 +43,7 @@ class EpisodioSqlite  (contexto: Context): EpisodioDAO {
 
     override fun recuperarEpisodio(numeroSequencial: Int, temporadaId: Int): Episodio? {
         var episodio: Episodio? = null
-        val episodioCursor = bdSeries.rawQuery("SELECT * FROM episodio " +
+        val episodioCursor = bdSeries.rawQuery("SELECT * FROM EPISODIO " +
                 "WHERE numero_sequencial = ? AND temporada_id = ?",
             arrayOf(numeroSequencial.toString(), temporadaId.toString()))
 
@@ -50,7 +52,7 @@ class EpisodioSqlite  (contexto: Context): EpisodioDAO {
                 episodioCursor.getInt(episodioCursor.getColumnIndexOrThrow("numero_sequencial")),
                 episodioCursor.getString(episodioCursor.getColumnIndexOrThrow("nome")),
                 episodioCursor.getInt(episodioCursor.getColumnIndexOrThrow("duracao")),
-                intToBoolean(episodioCursor.getInt(episodioCursor.getColumnIndexOrThrow("foi_visto"))),
+                intToBoolean(episodioCursor.getInt(episodioCursor.getColumnIndexOrThrow("assistido"))),
                 episodioCursor.getInt(episodioCursor.getColumnIndexOrThrow("temporada_id"))
             )
         }
@@ -63,10 +65,10 @@ class EpisodioSqlite  (contexto: Context): EpisodioDAO {
         episodioCv.put("numero_sequencial", episodio.numeroSequencialEp)
         episodioCv.put("nome", episodio.nomeEp)
         episodioCv.put("duracao", episodio.duracaoEp)
-        episodioCv.put("foi_visto", episodio.assistidoEp)
+        episodioCv.put("assistido", episodio.assistidoEp)
         episodioCv.put("temporada_id", episodio.temporadaId)
 
-        return bdSeries.update("EPISODIO", episodioCv, "numero_sequencial_ep = ? AND temporada_id = ?",
+        return bdSeries.update("EPISODIO", episodioCv, "numero_sequencial = ? AND temporada_id = ?",
             arrayOf(episodio.numeroSequencialEp.toString(), episodio.temporadaId.toString()))
     }
 

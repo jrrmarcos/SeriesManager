@@ -9,7 +9,7 @@ class SerieSqlite  (contexto: Context): SerieDAO {
 
     override fun criarSerie(serie: Serie): Long {
         val serieCv = ContentValues()
-        serieCv.put("nome", serie.nomeSerie)
+        serieCv.put("nome_serie", serie.nomeSerie)
         serieCv.put("ano_lancamento", serie.anoLancamentoSerie)
         serieCv.put("emissora", serie.emissoraSerie)
         serieCv.put("genero", serie.generoSerie)
@@ -37,6 +37,7 @@ class SerieSqlite  (contexto: Context): SerieDAO {
     }
 
     override fun removerSerie(nome: String): Int {
+
         return bdSeries.delete("SERIE", "nome_serie = ?", arrayOf(nome))
     }
 }
