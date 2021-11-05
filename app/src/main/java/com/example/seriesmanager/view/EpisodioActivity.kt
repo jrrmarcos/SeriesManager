@@ -47,7 +47,6 @@ class EpisodioActivity: AppCompatActivity() {
                 activityEpisodiosBinding.assistidoCb.isChecked,
                 temporadaId
             )
-
             val resultadoIntent = intent.putExtra(EXTRA_EPISODIO, episodio)
 
             if (posicao != -1) {

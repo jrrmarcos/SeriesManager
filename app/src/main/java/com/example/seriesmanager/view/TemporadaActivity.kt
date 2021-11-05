@@ -46,7 +46,9 @@ class TemporadaActivity: AppCompatActivity() {
                 activityTemporadaBinding.qtdEpisodiosEt.text.toString(),
                 serie.nomeSerie
             )
+
             val resultadoIntent = intent.putExtra(EXTRA_TEMPORADA, temporada)
+
             if (posicao != -1) {
                 resultadoIntent.putExtra(EXTRA_TEMPORADA, posicao)
             }
