@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/visualizarSerieMi"
-        android:title="@string/visualizarSerie"/>
+        android:title="@string/visualizarDetalhes"/>
     <item
         android:id="@+id/removerSerieMi"
         android:title="@string/removerSerie"/>
