@@ -13,7 +13,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/nomeEpisodio"
-        android:textSize="25sp"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/assistidoCbLl"
         app:layout_constraintTop_toTopOf="parent"/>
@@ -42,6 +42,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/numeroSequencial"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/duracaoEpisodioTv"
         app:layout_constraintTop_toBottomOf="@id/nomeEpisodioTv"/>
@@ -51,6 +52,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/duracaoEpisodio"
+        android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@id/numeroSequencialEpisodioTv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/nomeEpisodioTv"/>

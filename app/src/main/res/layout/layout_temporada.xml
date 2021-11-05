@@ -23,7 +23,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/anoLancamento"
-        android:textSize="15sp"
+        android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@id/anoLancamentoTv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/numeroSequencialTv" />
@@ -33,7 +33,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/qtdEpisodios"
-        android:textSize="15sp"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/qtdEpisodiosTv"
         app:layout_constraintTop_toBottomOf="@id/numeroSequencialTv" />
