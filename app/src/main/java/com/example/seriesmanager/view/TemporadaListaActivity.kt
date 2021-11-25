@@ -3,6 +3,7 @@ package com.example.seriesmanager.view
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -131,5 +132,20 @@ class TemporadaListaActivity : AppCompatActivity(), OnTemporadaClickListener {
         consultarEpisodiosIntent.putExtra(EXTRA_TEMPORADA, temporada)
         consultarEpisodiosIntent.putExtra(EXTRA_ID_TEMPORADA, temporadaId)
         startActivity(consultarEpisodiosIntent)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean  = when (item.itemId) {
+        R.id.sairMi -> {
+            AutenticacaoFirebase.firebaseAuth.signOut()
+            finish()
+            true
+        }else ->  {
+            false;
+        }
     }
 }

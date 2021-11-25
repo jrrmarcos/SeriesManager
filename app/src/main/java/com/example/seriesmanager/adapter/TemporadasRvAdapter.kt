@@ -3,10 +3,10 @@ package com.example.seriesmanager.adapter
 import android.view.*
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.seriesmanager.OnTemporadaClickListener
 import com.example.seriesmanager.R
 import com.example.seriesmanager.databinding.LayoutTemporadaBinding
 import com.example.seriesmanager.model.Temporada
+import com.example.seriesmanager.view.OnTemporadaClickListener
 
 class TemporadasRvAdapter (
     private val onTemporadaClickListener: OnTemporadaClickListener,

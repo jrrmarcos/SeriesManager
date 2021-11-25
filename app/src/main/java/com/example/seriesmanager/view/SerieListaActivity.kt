@@ -3,18 +3,17 @@ package com.example.seriesmanager.view
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.seriesmanager.OnSerieClickListener
 import com.example.seriesmanager.R
 import com.example.seriesmanager.adapter.SeriesRvAdapter
 import com.example.seriesmanager.controller.SerieController
 import com.example.seriesmanager.databinding.ActivitySerieListaBinding
 import com.example.seriesmanager.model.Serie
-import com.example.seriesmanager.model.Temporada
 import com.google.android.material.snackbar.Snackbar
 
 class SerieListaActivity : AppCompatActivity(), OnSerieClickListener {
@@ -70,7 +69,7 @@ class SerieListaActivity : AppCompatActivity(), OnSerieClickListener {
 
         visualizarSerieActivityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { resultado ->
             if (resultado.resultCode == RESULT_OK) {
-                val posicao = resultado.data?.getIntExtra(EXTRA_SERIE_POSICAO, -1)
+                resultado.data?.getIntExtra(EXTRA_SERIE_POSICAO, -1)
                 resultado.data?.getParcelableExtra<Serie>(EXTRA_SERIE)?.apply {
                 }
             }
@@ -120,5 +119,27 @@ class SerieListaActivity : AppCompatActivity(), OnSerieClickListener {
         val consultarTemporadasIntent = Intent(this, TemporadaListaActivity::class.java)
         consultarTemporadasIntent.putExtra(EXTRA_SERIE, serie)
         startActivity(consultarTemporadasIntent)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean  = when (item.itemId) {
+        R.id.sairMi -> {
+            AutenticacaoFirebase.firebaseAuth.signOut()
+            finish()
+            true
+        }else ->  {
+            false;
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if(AutenticacaoFirebase.firebaseAuth.currentUser==null){
+            finish()
+        }
     }
 }
