@@ -14,7 +14,11 @@ import com.example.seriesmanager.adapter.EpisodiosRvAdapter
 import com.example.seriesmanager.controller.EpisodioController
 import com.example.seriesmanager.databinding.ActivityEpisodioListaBinding
 import com.example.seriesmanager.model.Episodio
+import com.example.seriesmanager.model.Serie
+import com.example.seriesmanager.model.Temporada
+import com.example.seriesmanager.view.SerieListaActivity.Extras.EXTRA_SERIE
 import com.example.seriesmanager.view.TemporadaListaActivity.Extras.EXTRA_ID_TEMPORADA
+import com.example.seriesmanager.view.TemporadaListaActivity.Extras.EXTRA_TEMPORADA
 import com.google.android.material.snackbar.Snackbar
 
 class EpisodioListaActivity : AppCompatActivity(), OnEpisodioClickListener {
@@ -24,6 +28,8 @@ class EpisodioListaActivity : AppCompatActivity(), OnEpisodioClickListener {
     }
 
     private var temporadaId: Int = 0
+    private lateinit var temporada: Temporada
+    private lateinit var serie: Serie
 
     private val activityEpisodioListaActivityBinding: ActivityEpisodioListaBinding by lazy {
         ActivityEpisodioListaBinding.inflate(layoutInflater)
@@ -35,7 +41,7 @@ class EpisodioListaActivity : AppCompatActivity(), OnEpisodioClickListener {
 
     //Controller
     private val episodioController: EpisodioController by lazy {
-        EpisodioController(this)
+        EpisodioController(temporada)
     }
 
     //Data source
@@ -56,8 +62,11 @@ class EpisodioListaActivity : AppCompatActivity(), OnEpisodioClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(activityEpisodioListaActivityBinding.root)
+        supportActionBar?.subtitle = "Episodios"
 
         temporadaId = intent.getIntExtra(EXTRA_ID_TEMPORADA, -1)
+        temporada = intent.getParcelableExtra<Temporada>(EXTRA_TEMPORADA)!!
+        serie = intent.getParcelableExtra<Serie>(EXTRA_SERIE)!!
 
         //Associar Adapter e Layout Manager ao Recycler View
         activityEpisodioListaActivityBinding.EpisodiosRv.adapter = episodioAdapter
@@ -129,12 +138,12 @@ class EpisodioListaActivity : AppCompatActivity(), OnEpisodioClickListener {
     }
 
     override fun onEpisodioClick(posicao: Int) {
-        temporadaId = intent.getIntExtra(EXTRA_ID_TEMPORADA, -1)
+        /*temporadaId = intent.getIntExtra(EXTRA_ID_TEMPORADA, -1)
         val episodio = episodioList[posicao]
         val consultarEpisodioIntent = Intent(this, EpisodioActivity::class.java)
         consultarEpisodioIntent.putExtra(EXTRA_EPISODIO, episodio)
         consultarEpisodioIntent.putExtra(EXTRA_ID_TEMPORADA, temporadaId)
-        startActivity(consultarEpisodioIntent)
+        startActivity(consultarEpisodioIntent)*/
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -149,6 +158,13 @@ class EpisodioListaActivity : AppCompatActivity(), OnEpisodioClickListener {
             true
         }else ->  {
             false;
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if(AutenticacaoFirebase.firebaseAuth.currentUser == null) {
+            finish()
         }
     }
 }
