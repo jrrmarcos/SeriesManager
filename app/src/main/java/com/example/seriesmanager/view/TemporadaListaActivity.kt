@@ -36,7 +36,7 @@ class TemporadaListaActivity : AppCompatActivity(), OnTemporadaClickListener {
 
     // Controller
     private val temporadaController: TemporadaController by lazy {
-        TemporadaController(this)
+        TemporadaController(serie)
     }
 
     //Data source
@@ -127,10 +127,11 @@ class TemporadaListaActivity : AppCompatActivity(), OnTemporadaClickListener {
 
     override fun onTemporadaClick(posicao: Int) {
         val temporada = temporadaList[posicao]
-        val temporadaId = temporadaController.buscarTemporadaId(temporada.nomeSerie, temporada.numeroSequencialTemp)
+        //val temporadaId = temporadaController.buscarTemporadaId(temporada.nomeSerie, temporada.numeroSequencialTemp)
         val consultarEpisodiosIntent = Intent(this, EpisodioListaActivity::class.java)
         consultarEpisodiosIntent.putExtra(EXTRA_TEMPORADA, temporada)
-        consultarEpisodiosIntent.putExtra(EXTRA_ID_TEMPORADA, temporadaId)
+        consultarEpisodiosIntent.putExtra(EXTRA_SERIE, serie)
+        //consultarEpisodiosIntent.putExtra(EXTRA_ID_TEMPORADA, temporadaId)
         startActivity(consultarEpisodiosIntent)
     }
 
@@ -146,6 +147,13 @@ class TemporadaListaActivity : AppCompatActivity(), OnTemporadaClickListener {
             true
         }else ->  {
             false;
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (AutenticacaoFirebase.firebaseAuth.currentUser == null) {
+            finish()
         }
     }
 }
