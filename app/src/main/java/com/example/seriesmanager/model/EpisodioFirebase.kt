@@ -88,8 +88,8 @@ class EpisodioFirebase (temporada: Temporada): EpisodioDAO {
         return -1
     }
 
-    override fun removerEpisodio(nomeEpisodio: String, numeroSequencial: Int): Int {
-        episodioRtDb.child("$numeroSequencial - $nomeEpisodio").removeValue()
+    override fun removerEpisodio(nomeEp: String, numeroSequencialEp: Int): Int {
+        episodioRtDb.child("$numeroSequencialEp - $nomeEp").removeValue()
         return 1
     }
 

@@ -27,7 +27,6 @@ class EpisodioListaActivity : AppCompatActivity(), OnEpisodioClickListener {
         const val EXTRA_POSICAO_EP = "EXTRA_POSICAO_EP"
     }
 
-    private var temporadaId: Int = 0
     private lateinit var temporada: Temporada
     private lateinit var serie: Serie
 
@@ -46,7 +45,7 @@ class EpisodioListaActivity : AppCompatActivity(), OnEpisodioClickListener {
 
     //Data source
     private val episodioList: MutableList<Episodio> by lazy {
-        episodioController.buscarEpisodios(temporadaId)
+        episodioController.buscarEpisodios()
     }
 
     //Adapter
@@ -64,7 +63,6 @@ class EpisodioListaActivity : AppCompatActivity(), OnEpisodioClickListener {
         setContentView(activityEpisodioListaActivityBinding.root)
         supportActionBar?.subtitle = "Episodios"
 
-        temporadaId = intent.getIntExtra(EXTRA_ID_TEMPORADA, -1)
         temporada = intent.getParcelableExtra<Temporada>(EXTRA_TEMPORADA)!!
         serie = intent.getParcelableExtra<Serie>(EXTRA_SERIE)!!
 
@@ -99,7 +97,7 @@ class EpisodioListaActivity : AppCompatActivity(), OnEpisodioClickListener {
 
         activityEpisodioListaActivityBinding.adicionarEpisodioFb.setOnClickListener {
             val addEpisodioIntent = Intent(this, EpisodioActivity::class.java)
-            addEpisodioIntent.putExtra(EXTRA_ID_TEMPORADA, temporadaId)
+            addEpisodioIntent.putExtra(EXTRA_ID_TEMPORADA, temporada.numeroSequencialTemp)
             episodioActivityResultLauncher.launch(addEpisodioIntent)
         }
     }
@@ -122,7 +120,7 @@ class EpisodioListaActivity : AppCompatActivity(), OnEpisodioClickListener {
                 with(AlertDialog.Builder(this)) {
                     setMessage("Confirma a remoção?")
                     setPositiveButton("Sim") { _, _ ->
-                        episodioController.apagarEpisodio(temporadaId, episodio.numeroSequencialEp)
+                        episodioController.apagarEpisodio(episodio.nomeEp, episodio.numeroSequencialEp)
                         episodioList.removeAt(posicao)
                         episodioAdapter.notifyDataSetChanged()
                         Snackbar.make(activityEpisodioListaActivityBinding.root, "Episódio removido", Snackbar.LENGTH_SHORT).show()

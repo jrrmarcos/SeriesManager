@@ -52,6 +52,7 @@ class SerieListaActivity : AppCompatActivity(), OnSerieClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(activityMainBinding.root)
+        supportActionBar?.subtitle = "Series"
 
         activityMainBinding.SeriesRv.adapter = serieAdapter
         activityMainBinding.SeriesRv.layoutManager = serieLayoutManager
