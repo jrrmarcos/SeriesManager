@@ -142,6 +142,10 @@ class TemporadaListaActivity : AppCompatActivity(), OnTemporadaClickListener {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean  = when (item.itemId) {
+        R.id.atualizarMi -> {
+            temporadaAdapter.notifyDataSetChanged()
+            true
+        }
         R.id.sairMi -> {
             AutenticacaoFirebase.firebaseAuth.signOut()
             finish()

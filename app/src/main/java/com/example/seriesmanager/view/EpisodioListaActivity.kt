@@ -150,6 +150,10 @@ class EpisodioListaActivity : AppCompatActivity(), OnEpisodioClickListener {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean  = when (item.itemId) {
+        R.id.atualizarMi -> {
+            episodioAdapter.notifyDataSetChanged()
+            true
+        }
         R.id.sairMi -> {
             AutenticacaoFirebase.firebaseAuth.signOut()
             finish()

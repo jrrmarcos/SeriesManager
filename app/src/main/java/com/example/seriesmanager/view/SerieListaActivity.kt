@@ -128,6 +128,10 @@ class SerieListaActivity : AppCompatActivity(), OnSerieClickListener {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean  = when (item.itemId) {
+        R.id.atualizarMi -> {
+            serieAdapter.notifyDataSetChanged()
+            true
+        }
         R.id.sairMi -> {
             AutenticacaoFirebase.firebaseAuth.signOut()
             finish()

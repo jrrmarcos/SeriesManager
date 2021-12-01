@@ -2,6 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/atualizarMi"
+        android:title="Atualizar"
+        android:contentDescription="Atualizar"
+        android:icon="@drawable/ic_atualizar"
+        app:showAsAction="always" />
+
+    <item
         android:id="@+id/sairMi"
         android:title="Sair"
         android:contentDescription="Sair"
