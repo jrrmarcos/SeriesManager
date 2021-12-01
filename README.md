@@ -26,5 +26,9 @@ persistência deve ser implementada usando SQLite e o uso de uma arquitetura de 
 
 
 ---------------------------------------------------------------------------------------------
-LINK DE DEMONSTRAÇÃO DO APLICATIVO: https://screenrec.com/share/0ld7yXmi5k
+LINK DE DEMONSTRAÇÃO DO APLICATIVO:
+
+PARTE 1 - https://screenrec.com/share/0ld7yXmi5k
+
+PARTE 2 - https://screenrec.com/share/6rMaDGhUFy
 ---------------------------------------------------------------------------------------------
